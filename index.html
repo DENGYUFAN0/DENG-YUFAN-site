@@ -1,12 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>WCB Burger - 韩式手工汉堡</title>
+    <meta name="description" content="韩式融合风味，每日新鲜现做的手工汉堡">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. Header 背景图样式 */
+        header {
+            /* 这里的路径指向 images 文件夹 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-burger.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        /* 基础容器 */
+        .container { width: 90%; max-width: 1000px; margin: 0 auto; }
+        .fancy-font { font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin-bottom: 10px; }
+        
+        /* 菜单表格样式 */
+        .menu-section { padding: 50px 0; text-align: center; }
+        .menu-table { width: 100%; border-collapse: collapse; margin-top: 30px; text-align: left; }
+        .menu-table th { padding: 15px; border-bottom: 1px solid #ddd; font-size: 1.1rem; }
+        .menu-table td { padding: 15px; border-bottom: 1px solid #ddd; text-align: right; font-weight: bold; }
+        .menu-table span { font-size: 0.85rem; color: #666; font-weight: normal; }
+
+        /* 图片通用样式 */
+        .content-img { width: 100%; max-width: 600px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 20px 0; }
+        
+        /* 环境介绍区域 */
+        .about-section { background-color: #f9f9f9; padding: 60px 0; }
+        .flex-container { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .flex-item { flex: 1; min-width: 300px; }
+
+        footer { background: #333; color: white; padding: 40px 0; text-align: center; }
+        .btn-contact { display: inline-block; background: #ff5722; color: white; padding: 10px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+    </style>
 </head>
 <body>
-    <h2>This </h2>
-    <h3>welcome</h3>
+
+    <header>
+        <div class="container">
+            <h1 class="fancy-font">WCB Burger</h1>
+            <p>韩式风味与手工汉堡的完美融合<br>Seoul Soul, Burger Goal.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="menu-section">
+            <div class="container">
+                <h2 class="section-title fancy-font" style="color:#333;">Our Menu</h2>
+                
+                <img src="images/honey-fries.jpg" alt="蜂蜜黄油薯条" class="content-img">
+                <p style="font-style: italic; color: #ff5722;">★ 人气必点：招牌蜂蜜黄油薯条</p>
+
+                <table class="menu-table">
+                    <tr>
+                        <th>🍔 불고기 버거 <br> <span>韩式烤肉汉堡 / Bulgogi Burger</span></th>
+                        <td>8,500원</td>
+                    </tr>
+                    <tr>
+                        <th>🔥 김치 베이컨 버거 <br> <span>泡菜培根汉堡 / Kimchi Bacon Burger</span></th>
+                        <td>9,000원</td>
+                    </tr>
+                    <tr>
+                        <th>🍗 양념치킨 버거 <br> <span>韩式炸鸡汉堡 / Sweet & Spicy Chicken Burger</span></th>
+                        <td>8,800원</td>
+                    </tr>
+                    <tr>
+                        <th>🍟 허니버터 프라이 <br> <span>蜂蜜黄油薯条 / Honey Butter Fries</span></th>
+                        <td>4,500원</td>
+                    </tr>
+                    <tr>
+                        <th>🥤 밀키스 <br> <span>牛奶苏打 / Milkis</span></th>
+                        <td>2,500원</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h2 class="fancy-font">Our Space</h2>
+                        <p>在简约温馨的木质空间里，享受最纯正的手工汉堡。我们为您准备了舒适的用餐环境，无论是快餐还是小聚都是绝佳选择。</p>
+                        <p>Experience our cozy, modern minimalist dining area designed for your comfort.</p>
+                    </div>
+                    <div class="flex-item">
+                        <img src="images/shop-interior.jpg" alt="店铺内景" class="content-img" style="max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2 class="fancy-font" style="color:white;">Contact Us</h2>
+            <p>📍 서울시 강남구 신사동 (江南区新沙洞)</p>
+            <p>⏰ 11:00 ~ 21:00</p>
+            <a href="#" class="btn-contact">立即下单 / Order Now</a>
+            <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2026 WCB Burger. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
