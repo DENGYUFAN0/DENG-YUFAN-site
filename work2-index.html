@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCB Burger | Authentic Taste</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. 定义变量 (McDonald's 风格配色) --- */
+        :root {
+            --mcd-yellow: #FFBC0D;
+            --mcd-red: #DB0007;
+            --dark-bg: #292929;
+            --light-bg: #F8F8F8;
+            --text-main: #292929;
+        }
+
+        /* --- 2. 全局样式 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            overflow-x: hidden; /* 防止因为动画导致横向滚动条 */
+        }
+
+        /* --- 3. 导航栏 (带下划线动画) --- */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        .nav-container {
+            width: 90%; max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem; color: var(--mcd-red); font-weight: bold; text-decoration: none;
+        }
+        .nav-links a {
+            text-decoration: none; color: #333; font-weight: 700; margin-left: 25px;
+            position: relative; transition: color 0.3s;
+        }
+        /* 导航链接下划线动效 */
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 3px;
+            bottom: -5px; left: 0; background-color: var(--mcd-yellow);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .btn-order-nav {
+            background-color: var(--mcd-yellow); color: black !important;
+            padding: 10px 25px; border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-order-nav:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+        /* --- 4. Hero Banner (首屏巨幕) --- */
+        header {
+            height: 65vh;
+            /* 网络图片：巨大的多汁汉堡 */
+            background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; color: white;
+            background-attachment: fixed; /* 视差滚动效果 */
+        }
+        .hero-content { width: 90%; max-width: 1200px; margin: 0 auto; animation: fadeInUp 1s ease-out; }
+        .hero-title { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .btn-primary {
+            display: inline-block; background-color: var(--mcd-red); color: white;
+            padding: 18px 45px; font-size: 1.2rem; font-weight: bold; text-decoration: none;
+            border-radius: 5px; transition: all 0.3s;
+        }
+        .btn-primary:hover { background-color: #b30006; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(219, 0, 7, 0.3); }
+
+        /* --- 5. 推荐卡片 (交互核心) --- */
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 50px; position: relative; }
+        /* 标题下方的小黄条 */
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 5px; background: var(--mcd-yellow);
+            margin: 15px auto 0;
+        }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease; /* 卡片整体过渡 */
+            cursor: pointer;
+        }
+        .card-img-wrapper { overflow: hidden; height: 250px; }
+        .card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease; /* 图片缩放过渡 */
+        }
+        
+        /* 悬浮交互：卡片上浮 + 阴影加重 + 图片放大 */
+        .card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .card:hover img { transform: scale(1.1); }
+        
+        .card-body { padding: 25px; position: relative; }
+        .card-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .card-desc { color: #666; font-size: 0.95rem; margin-bottom: 20px; min-height: 40px; }
+        .price-tag { 
+            position: absolute; top: -30px; right: 20px; 
+            background: var(--mcd-yellow); padding: 10px 15px; 
+            border-radius: 50px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- 6. 新增：全宽横幅 (打破布局) --- */
+        .promo-banner {
+            height: 400px; margin: 60px 0;
+            /* 网络图片：可乐/冷饮 */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed; background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+        }
+        .promo-text h2 { font-size: 3rem; margin-bottom: 10px; color: var(--mcd-yellow); }
+
+        /* --- 7. 菜单列表 --- */
+        .menu-list { background: white; padding: 40px; border-radius: 15px; }
+        .menu-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px; border-bottom: 1px dashed #eee; transition: background 0.3s;
+        }
+        .menu-item:hover { background-color: #fff9e6; /* 悬浮变成淡黄色 */ border-radius: 10px; padding-left: 30px; }
+
+        /* --- 8. 页脚 --- */
+        footer { background: #111; color: #888; padding: 60px 0; text-align: center; }
+        
+        /* 简单的淡入动画 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">WCB Burger</a>
+            <div class="nav-links">
+                <a href="#">Menu</a>
+                <a href="#">Story</a>
+                <a href="#">Locations</a>
+                <a href="#" class="btn-order-nav">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-content">
+            <h1 class="hero-title">SEOUL SOUL<br>IN EVERY BITE</h1>
+            <p style="font-size: 1.3rem; margin-bottom: 30px;">
+                100% 纯正手工牛肉，遇见韩式灵魂酱汁。<br>
+                Taste the difference of handcrafted perfection.
+            </p>
+            <a href="#" class="btn-primary">立即点餐 / Order Now</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">人气推荐 / Favorites</h2>
+        
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Bulgogi Burger">
+                </div>
+                <div class="card-body">
+                    <span class="price-tag">8,500₩</span>
+                    <h3 class="card-title">불고기 버거 (Bulgogi)</h3>
+                    <p class="card-desc">甜咸适口的特制韩式烤肉酱汁。<br>Sweet and savory Korean BBQ sauce.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="images\hero-burger.jpg" alt="Chicken Burger">
+                </div>
+                <div class="card-body">
+                    <span class="price-tag">8,800₩</span>
+                    <h3 class="card-title">크리스피 치킨 (Crispy Chicken)</h3>
+                    <p class="card-desc">外酥里嫩的辣味炸鸡腿排。<br>Spicy & Crunchy chicken thigh patty.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=800&q=80" alt="Fries">
+                </div>
+                <div class="card-body">
+                    <span class="price-tag">4,500₩</span>
+                    <h3 class="card-title">허니버터 감자 (Honey Fries)</h3>
+                    <p class="card-desc">浓郁黄油与蜂蜜的绝妙搭配。<br>Signature fries with honey butter glaze.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="promo-banner">
+        <div class="promo-text">
+            <h2>REFRESH YOUR DAY</h2>
+            <p style="font-size: 1.5rem;">搭配冰镇可乐，快乐加倍！<br>Perfect match with ice cold drinks.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">完整菜单 / Full Menu</h2>
+        <div class="menu-list">
+            <div class="menu-item">
+                <div>
+                    <h3>🍤 쉬림프 버거 (Shrimp Burger)</h3>
+                    <p style="color:#666; font-size:0.9rem;">整只鲜虾排 / Whole shrimp patty</p>
+                </div>
+                <div style="font-weight:bold; color:var(--mcd-red);">9,500₩</div>
+            </div>
+            
+            <div class="menu-item">
+                <div>
+                    <h3>🔥 김치 베이컨 (Kimchi Bacon)</h3>
+                    <p style="color:#666; font-size:0.9rem;">炒泡菜与培根 / Stir-fried Kimchi</p>
+                </div>
+                <div style="font-weight:bold; color:var(--mcd-red);">9,000₩</div>
+            </div>
+
+            <div class="menu-item">
+                <div>
+                    <h3>🥤 밀키스 (Milkis Soda)</h3>
+                    <p style="color:#666; font-size:0.9rem;">韩国国民饮料 / Creamy Soda</p>
+                </div>
+                <div style="font-weight:bold; color:var(--mcd-red);">2,500₩</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: white; margin-top: 60px;">
+        <div class="container" style="display: flex; flex-wrap: wrap; align-items: center;">
+            <div style="flex: 1; min-width: 300px; padding-right: 40px;">
+                <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 20px;">OUR SPACE</h2>
+                <p style="line-height: 1.8; color: #555; margin-bottom: 30px;">
+                    我们致力于打造最舒适的用餐环境。无论是快速的工作午餐，还是周末的朋友聚会，WCB Burger 都是您的最佳选择。<br><br>
+                    Modern atmosphere designed for your comfort.
+                </p>
+                <a href="#" class="btn-primary" style="background: black;">查看地图 / View Map</a>
+            </div>
+            <div style="flex: 1; min-width: 300px; height: 400px; margin: 40px 0;">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1000&q=80" 
+                     alt="Interior" 
+                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px; box-shadow: 20px 20px 0 var(--mcd-yellow);">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-weight: bold; font-size: 1.2rem; color: white;">WCB Burger Korea</p>
+        <p style="margin-top: 10px;">📍 서울시 강남구 신사동 123-45</p>
+        <p style="margin-top: 20px; font-size: 0.8rem;">&copy; 2026 WCB Burger. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
